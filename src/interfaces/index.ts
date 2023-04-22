@@ -1,7 +1,8 @@
 import {
     IUserRequest,
     IUserResponse,
-    UsersArray
+    UsersArray,
+    IUserUpdate
 } from "./user.interfaces"
 import ILogin from "./login.interfaces"
 
@@ -9,5 +10,6 @@ export {
     IUserRequest,
     IUserResponse,
     UsersArray,
-    ILogin
+    ILogin,
+    IUserUpdate
 }
