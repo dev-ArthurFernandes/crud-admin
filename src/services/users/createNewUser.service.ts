@@ -7,8 +7,8 @@ const createUserService = async (payload: IUserRequest): Promise<IUserResponse> 
     
     const queryString: string = format(`
         INSERT INTO 
-            user(%I)
-        VALUSE(%L)
+            users(%I)
+        VALUES(%L)
         RETURNING *;
     `,
         Object.keys(payload),

@@ -48,9 +48,14 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction): Prom
         throw new AppError("User not active")
     }
 
-    if(userId === parseInt(req.params.id)){
+    if(user.id === parseInt(req.params.id)){
         return next()
     }
+
+    console.log(userId)
+    console.log(req.params.id)
+    console.log(user)
+    console.log(res.locals.userId)
 
     throw new AppError("Insufficient Permission", 403)
 }
