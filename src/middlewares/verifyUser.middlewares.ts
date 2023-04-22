@@ -20,7 +20,7 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction): Prom
             throw new AppError(error.message, 401)
         }
 
-        res.locals.userId = decoded.id
+        res.locals.userId = decoded.sub
 
         if(decoded.admin){
             return next()
