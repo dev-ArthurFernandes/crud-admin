@@ -1,5 +1,7 @@
 import ensureData from "./ensureData.middlewares";
+import verifyUser from "./verifyUser.middlewares";
 
 export{
-    ensureData
+    ensureData,
+    verifyUser
 }
