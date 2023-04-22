@@ -9,7 +9,6 @@ const ensureData = (schema: ZodSchema) => (req:Request, res: Response, next: Nex
     req.body = validateData
 
     return next()
-
 }
 
 export default ensureData

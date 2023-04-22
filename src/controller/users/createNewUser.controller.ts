@@ -8,6 +8,7 @@ const createUserController =async (req:Request, res: Response): Promise<Response
 
     const queryResult: IUserResponse = await createUserService(userData)
 
+    console.log("Criou com sucesso!")
     return res.status(201).json(queryResult)
 }
 

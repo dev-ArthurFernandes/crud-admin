@@ -8,7 +8,7 @@ class AppError extends Error {
     
     message: string
     
-    constructor(message: string, statusConde: number = 400){
+    constructor(statusConde: number = 400, message: string){
         super()
         this.message = message
         this.statusCode = statusConde
