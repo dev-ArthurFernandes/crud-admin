@@ -48,7 +48,7 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction): Prom
         throw new AppError("User not active")
     }
 
-    if(userId === res.locals.userId){
+    if(userId === parseInt(req.params.id)){
         return next()
     }
 
