@@ -9,17 +9,19 @@ import {
 } from "../controller";
 import {
     ensureData,
+    validateEmail,
     validateId,
-    verifyUser
+    verifyUser,
+    verifyUserIsActive
 } from "../middlewares";
 import {
     updateUserSchema,
     userSchema
 } from "../schemas";
-import verifyUserIsActive from "../middlewares/verifyUserIsActive.middleware";
+
 const userRouter = Router()
 
-userRouter.post('', ensureData(userSchema), createUserController)
+userRouter.post('', ensureData(userSchema), validateEmail, createUserController)
 
 userRouter.get('', verifyUser, getAllUsersController)
 userRouter.get('/profile', verifyUser, getUserController)
