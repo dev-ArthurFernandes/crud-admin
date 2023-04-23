@@ -2,6 +2,7 @@ import createUserController from "./users/createNewUser.controller";
 import getAllUsersController from "./users/getAllUsers.controller";
 import getUserController from "./users/getUser.controller";
 import updateUserController from "./users/updateUser.controller";
+import deleteUserController from "./users/deleteUser.controller";
 
 import loginController from "./login/login.controller";
 
@@ -10,5 +11,6 @@ export {
     getAllUsersController,
     getUserController,
     loginController,
-    updateUserController
+    updateUserController,
+    deleteUserController
 }
