@@ -21,10 +21,6 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction): Prom
         }
 
         res.locals.userId = decoded.sub
-
-        if(decoded.admin){
-            return next()
-        }
     })
 
     const userId: number = res.locals.userId
@@ -44,18 +40,17 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction): Prom
         throw new AppError("User not found", 404)
     }
 
-    if(!user.active){
-        throw new AppError("User not active")
+    if(req.url.split('/')[2] === "recover" && user.admin === false){
+        throw new AppError("Insufficient Permission", 403)
+    }
+
+    if(user.admin === true){
+        return next()
     }
 
     if(user.id === parseInt(req.params.id)){
         return next()
     }
-
-    console.log(userId)
-    console.log(req.params.id)
-    console.log(user)
-    console.log(res.locals.userId)
 
     throw new AppError("Insufficient Permission", 403)
 }
