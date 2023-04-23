@@ -2,7 +2,7 @@ import { QueryConfig } from "pg";
 import { ILogin } from "../../interfaces";
 import { client } from "../../database";
 import { AppError } from "../../AppError";
-import { compare } from "bcryptjs";
+import * as bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import 'dotenv/config'
 
@@ -22,14 +22,21 @@ const loginService = async (payload: ILogin): Promise<string> => {
         values: [payload.email]
     }
 
-    const user = (await client.query(queryConfig)).rows[0]
+    const queryResult = await client.query(queryConfig)
 
-    const email: string | null = user.email || null
+    if(!queryResult.rowCount){
+        throw new AppError("Wrong email/password", 401)
+    }
 
-    const password: string | null = user.password || null
+    const user = queryResult.rows[0]
 
+    const validPassword: boolean = await bcrypt.compare(payload.password,user.password)
 
-    if(!email || !(await compare(password!, payload.password))){
+    if(!user.active){
+        throw new AppError("Wrong email/password", 401)
+    }
+
+    if(!validPassword){
         throw new AppError("Wrong email/password", 401)
     }
 
@@ -37,12 +44,12 @@ const loginService = async (payload: ILogin): Promise<string> => {
         {
             admin: user.admin
         },
-        String(process.env.SECRET_KEY),
+        String(process.env.SECRET_kEY),
         {
-            expiresIn: String(process.env.EXPIRES_IN),
-            subject: user.id
+            expiresIn: process.env.EXPIRES_IN,
+            subject: String(user.id)
         }
-    ) 
+    )
 
     return token
 
