@@ -6,7 +6,7 @@ const deleteUserController = async (req: Request, res: Response): Promise<Respon
 
     const userId: number = parseInt(req.params.id)
 
-    deleteUserService(userId)
+    await deleteUserService(userId)
 
     return res.status(204).send()
 }

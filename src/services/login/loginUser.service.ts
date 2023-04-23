@@ -30,7 +30,7 @@ const loginService = async (payload: ILogin): Promise<string> => {
 
 
     if(!email || !(await compare(password!, payload.password))){
-        throw new AppError("Wrong email or password", 401)
+        throw new AppError("Wrong email/password", 401)
     }
 
     const token: string = jwt.sign(

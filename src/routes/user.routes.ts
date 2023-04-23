@@ -4,7 +4,8 @@ import {
     getAllUsersController,
     getUserController,
     updateUserController,
-    deleteUserController
+    deleteUserController,
+    recoverUserController
 } from "../controller";
 import {
     ensureData,
@@ -15,6 +16,7 @@ import {
     updateUserSchema,
     userSchema
 } from "../schemas";
+import verifyUserIsActive from "../middlewares/verifyUserIsActive.middleware";
 const userRouter = Router()
 
 userRouter.post('', ensureData(userSchema), createUserController)
@@ -25,5 +27,7 @@ userRouter.get('/profile', verifyUser, getUserController)
 userRouter.patch('/:id', validateId, verifyUser, ensureData(updateUserSchema), updateUserController)
 
 userRouter.delete('/:id', validateId, verifyUser, deleteUserController)
+
+userRouter.put('/:id/recover', validateId, verifyUser, verifyUserIsActive, recoverUserController)
 
 export default userRouter
