@@ -1,4 +1,5 @@
 
+
 import {Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 
@@ -25,10 +26,8 @@ const handleErrors = (error: Error, req: Request, res: Response, next: NextFunct
     }
 
     if(error instanceof ZodError){
-    
-        return res.status(400).json({
-            message: error.flatten().fieldErrors
-        })
+
+        return res.status(400).json(error.flatten().fieldErrors)
     
     }
     
